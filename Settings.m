@@ -8,6 +8,12 @@
 
 #import "Settings.h"
 
+unsigned int get_random(int min, int max) {
+    //NSLog(@"[%i]", seed % 3 + 1);
+    
+    return arc4random() % max + min;
+}
+
 @implementation Settings
 
 +(NSMutableDictionary*)getSettings

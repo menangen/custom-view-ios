@@ -15,10 +15,18 @@
 
 @implementation ViewController
 
+- (void) handleTaps:(UITapGestureRecognizer*)paramSender {
+    //NSLog(@"Ok");
+    [self.view setNeedsDisplay];
+}
+
 - (void)viewDidLoad {
-    UIView *view = [MyCustomView new];
     
+    UIView *view = [MyCustomView new];
     self.view = view;
+    
+    self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTaps:)];
+    [self.view addGestureRecognizer:self.tapGesture];
     
     
     //[super viewDidLoad];

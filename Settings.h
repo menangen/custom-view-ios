@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+unsigned int get_random(int min, int max);
+
 @interface Settings : NSObject
 + (NSMutableDictionary*)getSettings;
 @end
