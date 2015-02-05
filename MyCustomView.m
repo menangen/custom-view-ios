@@ -9,34 +9,50 @@
 #import "MyCustomView.h"
 #import "Settings.h"
 
-@implementation MyCustomView
+@interface MyCustomView ()
 
+@end
+
+@implementation MyCustomView
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 -(void)drawInContext:(CGContextRef)context
 {    
-    //self.backgroundColor = [UIColor blueColor];
-    CGFloat square_side = 20;
+
+    NSMutableDictionary *settings;
+    settings = [Settings getSettings];
+
+    unsigned int square_side = 15;
+    unsigned int down_bar_height = 30;
     
+    CGPoint topLeftPoint = CGPointMake(0, 0);
     
-    for (uint width_count = 0; width_count < 20; width_count++) {
-        //if (width_count == 0) {NSLog(@"%i", get_random(0, 10));}
+
+    NSLog(@"height is %@", [settings objectForKey:@"height"]);
+    NSLog(@"width is %@", [settings objectForKey:@"width"]);
+    
+    NSInteger squares_updown = ([[settings objectForKey:@"height"] integerValue] - down_bar_height) / square_side;
+
+    
+    for (unsigned char width_count = 0; width_count < 22; width_count++) {
         
-        for (uint height_count = 0; height_count < 25; height_count++) {
+        for (unsigned char height_count = 0; height_count < squares_updown; height_count++) {
+            float random_gray = (float)get_random(0, 70) / 200;
+            
             CGContextSetRGBFillColor(
             context,
-            0.3 + (float)get_random(0, 70) / 200 + (get_random(0, 10) == 0 ? 0.1 : 0.0),
-            0.3 + (float)get_random(0, 70) / 200,
-            0.3 + (float)get_random(0, 120) / 200,
+            0.3 + random_gray + (get_random(0, 50) == 0 ? 0.4 : 0.0),
+            0.3 + random_gray + (get_random(0, 50) == 0 ? 0.4 : 0.0),
+            0.3 + random_gray + (get_random(0, 50) == 0 ? 0.4 : 0.0),
             1.0);
             
             
             CGContextAddRect(
             context,
             CGRectMake(
-               0.0 + (CGFloat)width_count * square_side,
-               0.0 + (CGFloat)height_count * square_side,
+               topLeftPoint.x + (CGFloat)width_count * square_side,
+               topLeftPoint.y + (CGFloat)height_count * square_side,
                square_side,
                square_side)
             );
@@ -47,25 +63,6 @@
         
         
     }
-    
-    
-    //            CGContextSetRGBFillColor(
-    //                                     context,
-    //                                     0.1 + (CGFloat)width_count * 0.09 - (CGFloat)height_count * 0.04 - (width_count > 10 ? 0.09 : 0.0),
-    //                                     (0.6 - (float)get_random(0, 10) / 200) - (CGFloat)width_count * 0.08 +
-    //                                     (CGFloat)height_count * (height_count > 10 ? 0.01 : -0.01),
-    //                                     (0.8 - (float)get_random(0, 10) / 200) - (CGFloat)height_count * 0.04 + (CGFloat)width_count * 0.01, 1.0);
-    
-
-//    NSMutableDictionary *dict;
-//    dict = [Settings getSettings];
-//    NSLog(@"height is %@", [dict objectForKey:@"height"]);
-//    NSLog(@"width is %@", [dict objectForKey:@"width"]);
-
-//    square_side = 1;
-//    CGContextSetRGBFillColor(context, 0.3, 0.9, 0.8, 1.0);
-//    CGContextAddRect(context, CGRectMake(0.0, 479.0, square_side, square_side));
-//    CGContextFillPath(context);
     
 }
 
