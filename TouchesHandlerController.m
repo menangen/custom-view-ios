@@ -25,10 +25,10 @@
         NSLog(@"touchesBegan");
         
         NSSet *allTouches = [event allTouches];
-        NSLog(@"Number of fingers: %i", allTouches.count);
+        //NSLog(@"Number of fingers: %i", allTouches.count);
         
         UITouch *touch = [[allTouches allObjects] objectAtIndex:0];
-        NSLog(@"Number of taps: %i", touch.tapCount);
+        //NSLog(@"Number of taps: %i", touch.tapCount);
         
         CGPoint touchLocation = [touch locationInView:self.view];
         NSLog(@"x=%f y=%f", touchLocation.x, touchLocation.y);

@@ -10,4 +10,6 @@
 
 @interface MyCustomView : UIView
     -(void)drawInContext:(CGContextRef)context;
+
+    @property NSMutableDictionary *map;
 @end

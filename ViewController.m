@@ -21,11 +21,36 @@
 
 - (void)viewDidLoad {
     
-    UIView *view = [MyCustomView new];
-    self.view = view;
+    MyCustomView *view = [MyCustomView new];
     
-    self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTaps:)];
-    [self.view addGestureRecognizer:self.tapGesture];
+    NSURL *url = [[NSURL alloc] initWithString:@"http://127.0.0.1:5000/json"];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+    [urlRequest setValue:@"application/json" forHTTPHeaderField:@"accept"];
+    [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [urlRequest setTimeoutInterval: 30.0];
+    NSURLResponse * response = nil;
+    NSError * error = nil;
+    NSData * returnData = [NSURLConnection sendSynchronousRequest:urlRequest
+                                                returningResponse:&response
+                                                            error:&error];
+    if (error == nil)
+    {
+        // Parse data here
+        NSLog(@"Retrived JSON data");
+        NSMutableDictionary *mapArray = [NSJSONSerialization JSONObjectWithData:returnData options:NSJSONReadingMutableContainers error:&error];
+        if (error)
+            NSLog(@"JSONObjectWithData error: %@", error);
+        else
+            //NSLog(@"%@", [map objectForKey:@"map"][0]);
+            [view setMap:mapArray];
+        
+        self.view = view;
+        
+        self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTaps:)];
+        [self.view addGestureRecognizer:self.tapGesture];
+    }
+    
+
 
 }
 
