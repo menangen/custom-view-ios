@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "MyCustomView.h"
 
 @interface ViewController ()
 
@@ -16,14 +15,13 @@
 @implementation ViewController
 
 - (void) handleTaps:(UITapGestureRecognizer*)paramSender {
+    [self reloadJSON:(MyCustomView*)self.view];
     [self.view setNeedsDisplay];
 }
 
-- (void)viewDidLoad {
+- (void) reloadJSON:(MyCustomView*)view {
     
-    MyCustomView *view = [MyCustomView new];
-    
-    NSURL *url = [[NSURL alloc] initWithString:@"http://127.0.0.1:5000/json"];
+    NSURL *url = [[NSURL alloc] initWithString:@"http://192.168.1.5:5000/json"];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
     [urlRequest setValue:@"application/json" forHTTPHeaderField:@"accept"];
     [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -43,13 +41,19 @@
         else
             //NSLog(@"%@", [map objectForKey:@"map"][0]);
             [view setMap:mapArray];
-        
-        self.view = view;
-        
-        self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTaps:)];
-        [self.view addGestureRecognizer:self.tapGesture];
     }
+
+}
+
+- (void)viewDidLoad {
     
+    MyCustomView *view = [MyCustomView new];
+    [self reloadJSON:view];
+    self.view = view;
+    
+    
+    self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTaps:)];
+    [self.view addGestureRecognizer:self.tapGesture];
 
 
 }

@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MyCustomView.h"
+
 
 @interface ViewController : UIViewController
 
