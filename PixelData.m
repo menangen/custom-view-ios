@@ -13,7 +13,8 @@
     -(UIColor *)getColor: (NSNumber*) pixel {
 //        NSMutableArray *pixels;
 
-        NSMutableArray *pixels = [NSMutableArray new];
+        NSMutableArray *pixels = [[NSMutableArray alloc] initWithCapacity:100];
+        
         [pixels addObject:@"#59410e"];//0
         [pixels addObject:@"#44371c"];//1
         [pixels addObject:@"#393428"];//2
@@ -25,13 +26,25 @@
         [pixels addObject:@"#14141A"];//8
         [pixels addObject:@"#14141A"];//9
         
+        for (int i = 0; i < 30; i++) {
+            [pixels addObject:[NSNull null]];
+        }
+        
+        // gold
         [pixels insertObject:@"#AA7700" atIndex:10];
+        [pixels insertObject:@"#FFFF00" atIndex:11];
+        // gemstones
+        [pixels insertObject:@"#8fddfa" atIndex:20];//# Diamond
+        [pixels insertObject:@"#22AA33" atIndex:21];//# Emerald
+        [pixels insertObject:@"#222299" atIndex:22];//# Saphire
+        [pixels insertObject:@"#ae1a32" atIndex:23];//# Ruby
+        [pixels insertObject:@"#3f6167" atIndex:24];//# Aquamarine
 
         
         //float grey_color;
         NSUInteger pixel_id = [pixel integerValue];
         
-        if (pixel_id > 10) {
+        if (pixel_id > 24) {
             pixel_id = 10;
         }
         
